@@ -2,7 +2,7 @@ package ReleaseAction;
 use Exporter;
 @ISA = 'Exporter';
 @EXPORT_OK = 'on_release';
-$VERSION = 0.03;
+$VERSION = 0.04;
 use strict;
 
 sub DESTROY {

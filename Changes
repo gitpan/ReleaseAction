@@ -9,3 +9,6 @@ Revision history for Perl extension ReleaseAction.
 
 0.03  Sat Mar 9 15:00:00 EDT 2002
 	- Added cancel method.
+
+0.04  Fri Sep 26 21:00:00 PDT 2003
+	- Converted over to Module::Build.

@@ -1,6 +1,7 @@
 Changes
-ReleaseAction.pm
+lib/ReleaseAction.pm
 MANIFEST
-Makefile.PL
 test.pl
 README
+Build.pl
+Makefile.PL
