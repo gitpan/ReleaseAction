@@ -2,7 +2,7 @@ package ReleaseAction;
 use Exporter;
 @ISA = 'Exporter';
 @EXPORT_OK = 'on_release';
-$VERSION = 0.05;
+$VERSION = 0.06;
 use strict;
 
 sub DESTROY {
@@ -81,8 +81,6 @@ provided the prototype &@ for syntactic sugar.
 
   my $handle = on_release {print "Goodbye cruel world\n"};
 
-=back
-
 =item *
 
 And should you decide that you don't want to do the action
@@ -91,6 +89,8 @@ As suggested in the SYNOPSIS, this is useful if you wish to
 set up transactional mechanics.  Make the release action
 do your cleanup.  And then when you commit your changes,
 cancel the cleanup.
+
+=back
 
 =head1 EXAMPLE
 

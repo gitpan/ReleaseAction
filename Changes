@@ -19,3 +19,7 @@ Revision history for Perl extension ReleaseAction.
 	  the moment about Module::Build making
 	  everything read-only - hopefully that is
 	  harmless.
+
+0.06  Sat Nov  1 19:10:00 PDT 2003
+        - Fixed alignment issue in pod.  Thanks to
+          Elizabeth Mattijsen for noticing it.
