@@ -12,3 +12,10 @@ Revision history for Perl extension ReleaseAction.
 
 0.04  Fri Sep 26 21:00:00 PDT 2003
 	- Converted over to Module::Build.
+
+0.05  Sat Sep 27 22:00:00 PDT 2003
+	- Renamed Build.pl to Build.PL.  The other
+	  caused install problems.  Doing nothing at
+	  the moment about Module::Build making
+	  everything read-only - hopefully that is
+	  harmless.

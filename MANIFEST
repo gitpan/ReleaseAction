@@ -3,5 +3,5 @@ lib/ReleaseAction.pm
 MANIFEST
 test.pl
 README
-Build.pl
+Build.PL
 Makefile.PL
