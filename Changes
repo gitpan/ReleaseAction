@@ -1,0 +1,8 @@
+Revision history for Perl extension ReleaseAction.
+
+0.01  Mon Apr 16 13:00:00 EDT 2001
+	- Original version; posted to PerlMonks
+
+0.02  Sun Apr 22 17:00:00 EDT 2001
+	- Added VERSION, on_release, etc
+	- Posted to CPAN.
