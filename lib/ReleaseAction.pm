@@ -1,8 +1,8 @@
 package ReleaseAction;
 use Exporter;
 @ISA = 'Exporter';
-@EXPORT_OK = 'on_release';
-$VERSION = 0.06;
+@EXPORT_OK = qw(cancel on_release end);
+$VERSION = 0.9;
 use strict;
 
 sub DESTROY {
@@ -21,6 +21,10 @@ sub new {
 }
 
 sub on_release (&@) {
+  __PACKAGE__->new(@_);
+}
+
+sub end (&@) {
   __PACKAGE__->new(@_);
 }
 
@@ -52,7 +56,7 @@ ReleaseAction - call actions upon release.
     if (do_stuff()) {
       $rollback->cancel();
     }
-}
+  }
 
 =head1 DESCRIPTION
 
@@ -79,16 +83,30 @@ And an optional function C<on_release> that you can
 import.  For those who like that sort of thing, I have
 provided the prototype &@ for syntactic sugar.
 
-  my $handle = on_release {print "Goodbye cruel world\n"};
+  my $handle = on_release {print shift} "Goodbye cruel world\n";
+
+=item *
+
+C<on_release> is also named C<end> in honor of .
+
+  my $handle = end {print shift} "Goodbye cruel world\n";
 
 =item *
 
 And should you decide that you don't want to do the action
 on release after all, you can call the cancel() method.
+You can also import C<cancel> into your namespace.
 As suggested in the SYNOPSIS, this is useful if you wish to
 set up transactional mechanics.  Make the release action
 do your cleanup.  And then when you commit your changes,
 cancel the cleanup.
+
+  my $handle = release_action {rollback_trans()};
+  if (do_stuff()) {
+    $handle->cancel();
+    # or equivalently
+    cancel($handle);
+  }
 
 =back
 
@@ -133,6 +151,14 @@ cancel the cleanup.
     # out of scope.
   }
 
+=head1 SEE ALSO
+
+This module is essentially the same as Abigail's End.
+However this version has more features: it gives you
+a choice of interfaces, lets you cancel actions, and
+lets you pass in arguments to be passed into the
+release action.
+
 =head1 BUGS
 
 The future of reliable destruction mechanics in Perl 6
@@ -148,9 +174,13 @@ to me, and to ncw on PerlMonks for pointing out that
 prototypes would fit with on_release.  I still don't
 like them, but they do make sense here.
 
+My thanks to ihb on PerlMonks for pointing out that this
+module is the same as Abigail's End.  Had I known about
+that, I would never have released the original version.
+
 =head1 AUTHOR AND COPYRIGHT
 
-Written by Ben Tilly (ben_tilly@operamail.com).
+Written by Ben Tilly (ben_tilly@gmail.com).
 
 Copyright 2001.  This module may be modified and
 distributed on the same terms as Perl itself.
