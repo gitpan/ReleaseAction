@@ -6,7 +6,7 @@
 # Change 1..1 below to 1..last_test_to_print .
 # (It may become useful if the test is moved to ./t subdirectory.)
 
-BEGIN { $| = 1; print "1..5\n"; }
+BEGIN { $| = 1; print "1..6\n"; }
 END {print "not ok 1\n" unless $loaded;}
 use ReleaseAction qw(on_release);
 $loaded = 1;
@@ -18,10 +18,18 @@ print "ok 1\n";
 # (correspondingly "not ok 13") depending on the success of chunk 13
 # of the test code):
 
-my $handle = new ReleaseAction sub {print "ok 3\n"};
-print "ok 2\n";
-undef $handle;
+{
+  my $handle = new ReleaseAction sub {print "ok 3\n"};
+  print "ok 2\n";
+}
 
-$handle = on_release {print @_} "ok 5\n";
-print "ok 4\n";
-undef $handle;
+{
+  my $handle = on_release {print @_} "ok 5\n";
+  print "ok 4\n";
+}
+
+{
+  my $handle = on_release {print "not "};
+  $handle->cancel();
+}
+print "ok 6\n";

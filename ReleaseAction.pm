@@ -2,16 +2,22 @@ package ReleaseAction;
 use Exporter;
 @ISA = 'Exporter';
 @EXPORT_OK = 'on_release';
-$VERSION = 0.02;
+$VERSION = 0.03;
 use strict;
 
 sub DESTROY {
-  (shift)->();
+  my ($self, @args) = @{shift(@_)};
+  $self->(@args);
+}
+
+sub cancel {
+  my $self = shift;
+  @$self = sub {};
 }
 
 sub new {
-  my ($class, $action, @args) = @_;
-  bless sub {$action->(@args)}, $class;
+  my $class = shift;
+  bless [@_], $class;
 }
 
 sub on_release (&@) {
@@ -41,6 +47,12 @@ ReleaseAction - call actions upon release.
     my $handle = on_release {print "Exiting scope\n"};
     print "In scope\n";
   }
+  {
+    my $rollback = on_release {rollback_trans()};
+    if (do_stuff()) {
+      $rollback->cancel();
+    }
+}
 
 =head1 DESCRIPTION
 
@@ -70,6 +82,15 @@ provided the prototype &@ for syntactic sugar.
   my $handle = on_release {print "Goodbye cruel world\n"};
 
 =back
+
+=item *
+
+And should you decide that you don't want to do the action
+on release after all, you can call the cancel() method.
+As suggested in the SYNOPSIS, this is useful if you wish to
+set up transactional mechanics.  Make the release action
+do your cleanup.  And then when you commit your changes,
+cancel the cleanup.
 
 =head1 EXAMPLE
 

@@ -6,3 +6,6 @@ Revision history for Perl extension ReleaseAction.
 0.02  Sun Apr 22 17:00:00 EDT 2001
 	- Added VERSION, on_release, etc
 	- Posted to CPAN.
+
+0.03  Sat Mar 9 15:00:00 EDT 2002
+	- Added cancel method.
